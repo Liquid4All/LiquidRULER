@@ -1,0 +1,7 @@
+benchmark_root/
+*.json
+.ipynb_checkpoints/
+__pycache__/
+*.jsonl
+.vscode/
+*.out

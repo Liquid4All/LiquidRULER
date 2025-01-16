@@ -7,6 +7,5 @@
 conda create -n ruler python=3.11
 conda activate ruler
 ```
-2. Obtain your LiquidAI API key, and paste it into `ruler.sh`.
-3. Run `bash ruler.sh` to install necessary packages and run RULER.
-
+2. Get Liquid API key from [labs](https://labs.liquid.ai/settings).
+2. Run `bash ruler.sh --liquid-api-key <LIQUID_API_KEY>` to install necessary packages and run RULER.

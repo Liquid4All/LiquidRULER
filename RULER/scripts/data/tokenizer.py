@@ -117,12 +117,12 @@ class LiquidTokenizer:
         :param base_url: The base URL of the tokenizer endpoint (e.g., 'http://localhost:8000').
         :param api_token: The API token for authorization.
         """
-        self.base_url = base_url.rstrip("/")
         self.model = model_path
 
         self.base_url = base_url if base_url else os.environ["LIQUID_SERVER"]
         if self.base_url is None:
             raise ValueError("LIQUID_SERVER is missing from the environment variables.")
+        self.base_url = self.base_url.rstrip("/")
 
         self.api_token = api_token if api_token else os.environ["OPENAI_API_KEY"]
         if self.api_token is None:

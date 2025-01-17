@@ -19,4 +19,3 @@ tqdm
 nltk
 cython
 torch
-packaging

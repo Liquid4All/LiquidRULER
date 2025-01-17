@@ -3,7 +3,7 @@
 set -euo pipefail
 
 cd scripts/
-bash run.sh lfm-3b synthetic
+./run.sh lfm-3b synthetic
 
 calculate_average() {
     echo "Average score:"

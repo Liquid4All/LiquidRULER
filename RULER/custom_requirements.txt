@@ -17,3 +17,5 @@ vllm
 pyyaml
 tqdm
 nltk
+cython
+torch

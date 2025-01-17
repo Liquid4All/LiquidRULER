@@ -6,11 +6,9 @@ cd scripts/
 ./run.sh lfm-3b synthetic
 
 calculate_average() {
-  echo "Average score:"
-  python3 -c 'import sys,csv; print(sum(float(x) for x in next(csv.reader(sys.stdin))[1:])/13)' <<< $(sed -n '3p' "$1")
+    echo "Average score:"
+    python3 -c 'import sys,csv; print(sum(float(x) for x in next(csv.reader(sys.stdin))[1:])/13)' <<< $(sed -n '3p' "$1")
 }
-
-pwd
 
 # See results in benchmark_root
 echo "Context length: 32768"

@@ -64,7 +64,6 @@ jobs:
         shell: bash -l {0}
         working-directory: RULER
         run: |
-          pwd
           ls -alh scripts/benchmark_root/lfm-3b/synthetic/*/pred/*
           for csv_file in scripts/benchmark_root/lfm-3b/synthetic/*/pred/summary*.csv; do
             if [ -f "$csv_file" ]; then

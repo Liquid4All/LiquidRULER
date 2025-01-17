@@ -7,8 +7,7 @@ usage() {
   exit 1
 }
 
-# TODO: change to inference-1
-LIQUID_SERVER="https://inference-dev.liquid.ai"
+LIQUID_SERVER="https://inference-1.liquid.ai"
 SKIP_INSTALL=false
 NUM_SAMPLES=100
 

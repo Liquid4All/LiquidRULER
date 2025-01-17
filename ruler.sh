@@ -3,13 +3,14 @@
 set -euo pipefail
 
 usage() {
-  echo "Usage: $0 --liquid-api-key <LIQUID_API_KEY> [--liquid-server <LIQUID_SERVER>] [--skip-install]"
+  echo "Usage: $0 --liquid-api-key <LIQUID_API_KEY> [--liquid-server <LIQUID_SERVER>] [--skip-install] [--num-samples <NUM_SAMPLES>]"
   exit 1
 }
 
 # TODO: change to inference-1
 LIQUID_SERVER="inference-dev.liquid.ai"
 SKIP_INSTALL=false
+NUM_SAMPLES=100
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -24,6 +25,10 @@ while [[ $# -gt 0 ]]; do
     --skip-install)
       SKIP_INSTALL=true
       shift
+      ;;
+    --num-samples)
+      NUM_SAMPLES="$2"
+      shift 2
       ;;
     *)
       echo "Error: Unknown parameter $1"
@@ -48,4 +53,5 @@ fi
 
 export OPENAI_API_KEY="$LIQUID_API_KEY"
 export LIQUID_SERVER="$LIQUID_SERVER"
+export NUM_SAMPLES="$NUM_SAMPLES"
 ./run_ruler.sh

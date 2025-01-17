@@ -4,21 +4,23 @@
 
 1. Start with a new conda environment with `python=3.11`:
 
-  ```bash
-  conda create -n ruler python=3.11
-  conda activate ruler
-  ```
+```bash
+conda create -n ruler python=3.11
+conda activate ruler
+```
 
 2. Get Liquid API key from [labs](https://labs.liquid.ai/settings).
 
 3. Run `./ruler.sh --liquid-api-key <LIQUID_API_KEY>` to install necessary packages and run RULER.
 
-  | Parameter | Required | Description | Default |
-  | --- | --- | --- | --- |
-  | `--liquid-api-key <API-KEY>` | Yes | Inference server API key. | |
-  | `--liquid-server <SERVER-URL>` | No | Inference server URL base. | `https://inference-1.liquid.ai` |
-  | `--skip-install` | No | Skip dependency installation. Useful for re-running the script. | |
-  | `--num-samples <N>` | No | Number of samples to run. | 100 |
+All `ruler.sh` parameters:
+
+| Parameter | Required | Description | Default |
+| --- | --- | --- | --- |
+| `--liquid-api-key <API-KEY>` | Yes | Inference server API key. | |
+| `--liquid-server <SERVER-URL>` | No | Inference server URL base. | `https://inference-1.liquid.ai` |
+| `--skip-install` | No | Skip dependency installation. Useful for re-running the script. | |
+| `--num-samples <N>` | No | Number of samples to run. | 100 |
 
 ## Troubleshooting
 

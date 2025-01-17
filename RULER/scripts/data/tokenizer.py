@@ -117,7 +117,7 @@ class LiquidTokenizer:
         :param base_url: The base URL of the tokenizer endpoint (e.g., 'http://localhost:8000').
         :param api_token: The API token for authorization.
         """
-        self.base_url = self.base_url.rstrip("/")
+        self.base_url = base_url.rstrip("/")
         self.model = model_path
 
         self.base_url = base_url if base_url else os.environ["LIQUID_SERVER"]

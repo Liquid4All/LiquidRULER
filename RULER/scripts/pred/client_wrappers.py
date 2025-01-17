@@ -424,8 +424,14 @@ class LiquidClient():
             'lfm-3b': 32768,
         }
         self.openai_api_key = os.environ["OPENAI_API_KEY"]
-        self.model_name = model_name    
-            
+        if self.openai_api_key is None:
+            raise ValueError("OPENAI_API_KEY is missing from the environment variables.")
+        self.liquid_server = os.environ["LIQUID_SERVER"]
+        if self.liquid_server is None:
+            raise ValueError("LIQUID_SERVER is missing from the environment variables.")
+        self.liquid_server = self.liquid_server.rstrip("/")
+
+        self.model_name = model_name
         self.max_length = model2length[self.model_name]
         self.generation_kwargs = generation_kwargs
         self._create_client()
@@ -437,7 +443,7 @@ class LiquidClient():
         if self.openai_api_key:
             self.client = OpenAI(
                 api_key=self.openai_api_key,
-                base_url='https://inference-1.liquid.ai/v1'
+                base_url=f"{self.liquid_server}/v1"
             )
         else:
             raise ValueError("Need to set OPENAI_API_KEY with Liquid Labs key")

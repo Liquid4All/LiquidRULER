@@ -51,6 +51,7 @@ jobs:
         working-directory: RULER
         run: |
           ./install_script.sh
+          pip freeze
 
       - name: Run API evaluation script
         working-directory: RULER

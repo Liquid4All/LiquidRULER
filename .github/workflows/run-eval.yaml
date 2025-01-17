@@ -1,0 +1,66 @@
+name: Run API Evaluation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  run-api-eval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: |
+            RULER/custom_requirements.txt
+
+      - name: Install dependencies
+        working-directory: RULER
+        run: |
+          pip install cython
+          ./install_script.sh
+
+      - name: Run API Evaluation Script
+        working-directory: RULER
+        env:
+          NUM_SAMPLES: 1
+          LIQUID_SERVER: ${{ vars.LIQUID_SERVER }}
+          LIQUID_API_KEY: ${{ secrets.LIQUID_API_KEY }}
+        run: |
+          export OPENAI_API_KEY="$LIQUID_API_KEY"
+          export LIQUID_SERVER="$LIQUID_SERVER"
+          export NUM_SAMPLES="$NUM_SAMPLES"
+          ./run_ruler.sh
+
+      - name: Create Job Summary with CSV Tables
+        working-directory: RULER
+        run: |
+          for csv_file in scripts/benchmark_root/lfm_3b/synthetic/*/pred/summary.csv; do
+            if [ -f "$csv_file" ]; then
+              # Print the file path as a header
+              echo "**`$csv_file`**" >> $GITHUB_STEP_SUMMARY
+          
+              # convert CSV to markdown table
+              {
+                head -n1 "$csv_file" | sed 's/,/ | /g' | sed 's/^/| /' | sed 's/$/ |/';
+                echo -n "| " && head -n1 "$csv_file" | sed 's/[^,]/-/g; s/,/ | /g' | sed 's/$/ |/';
+                tail -n +2 "$csv_file" | sed 's/,/ | /g' | sed 's/^/| /' | sed 's/$/ |/';
+              } >> $GITHUB_STEP_SUMMARY
+          
+              echo -e "\n" >> $GITHUB_STEP_SUMMARY
+            fi
+          done

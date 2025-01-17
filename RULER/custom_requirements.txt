@@ -17,6 +17,3 @@ vllm==0.5.4
 pyyaml
 tqdm
 nltk
-wonderwords
-tenacity
-html2text

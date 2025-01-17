@@ -65,8 +65,8 @@ jobs:
         working-directory: RULER
         run: |
           pwd
-          ls -alh */benchmark_root/lfm_3b/synthetic/*/pred/*
-          for csv_file in */benchmark_root/lfm_3b/synthetic/*/pred/summary*.csv; do
+          ls -alh scripts/benchmark_root/lfm-3b/synthetic/*/pred/*
+          for csv_file in scripts/benchmark_root/lfm-3b/synthetic/*/pred/summary*.csv; do
             if [ -f "$csv_file" ]; then
               echo "Found summary CSV file: $csv_file"
               # Print the file path as a header

@@ -31,3 +31,7 @@ Run the following command to create a symbolic link to the system's `libstdc++.s
 ```bash
 ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ${CONDA_PREFIX}/lib/libstdc++.so.6
 ```
+
+## Acknowledgement
+
+This repository is modified from [NVIDIA/RULER](https://github.com/NVIDIA/RULER).

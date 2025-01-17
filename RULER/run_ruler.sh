@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -euo pipefail
+
 cd scripts/
 bash run.sh lfm-3b synthetic
 

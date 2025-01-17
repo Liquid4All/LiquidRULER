@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -euo pipefail
+
 # install requirements
 python -m pip install torch torchvision torchaudio
 python -m pip install -r custom_requirements.txt

@@ -11,10 +11,9 @@ openai
 tiktoken
 tenacity
 accelerate
-# huggingface_hub
+huggingface_hub
 transformers
 vllm
 pyyaml
 tqdm
 nltk
-cython

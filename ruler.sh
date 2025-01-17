@@ -3,12 +3,13 @@
 set -euo pipefail
 
 usage() {
-  echo "Usage: $0 --liquid-api-key <LIQUID_API_KEY> [--liquid-server <LIQUID_SERVER>]"
+  echo "Usage: $0 --liquid-api-key <LIQUID_API_KEY> [--liquid-server <LIQUID_SERVER>] [--skip-install]"
   exit 1
 }
 
 # TODO: change to inference-1
 LIQUID_SERVER="inference-dev.liquid.ai"
+SKIP_INSTALL=false
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -19,6 +20,10 @@ while [[ $# -gt 0 ]]; do
     --liquid-server)
       LIQUID_SERVER="$2"
       shift 2
+      ;;
+    --skip-install)
+      SKIP_INSTALL=true
+      shift
       ;;
     *)
       echo "Error: Unknown parameter $1"
@@ -36,8 +41,11 @@ fi
 # conda create -n ruler python=3.11
 # conda activate ruler
 cd RULER
-bash install_script.sh
+
+if [ "$SKIP_INSTALL" = false ]; then
+  ./install_script.sh
+fi
 
 export OPENAI_API_KEY="$LIQUID_API_KEY"
 export LIQUID_SERVER="$LIQUID_SERVER"
-bash run_ruler.sh
+./run_ruler.sh

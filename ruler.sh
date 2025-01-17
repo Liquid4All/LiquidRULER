@@ -36,7 +36,7 @@ fi
 # conda create -n ruler python=3.11
 # conda activate ruler
 cd RULER
-# bash install_script.sh
+bash install_script.sh
 
 export OPENAI_API_KEY="$LIQUID_API_KEY"
 export LIQUID_SERVER="$LIQUID_SERVER"

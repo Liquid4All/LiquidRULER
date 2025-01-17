@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 usage() {
   echo "Usage: $0 --liquid-api-key <LIQUID_API_KEY>"
   exit 1

@@ -83,6 +83,14 @@ elif [ "$MODEL_FRAMEWORK" == "sglang" ]; then
 
 fi
 
+# In CI, use only the first sequence length and first task
+if [ "${CI}" = "true" ]; then
+    SEQ_LENGTHS=(${SEQ_LENGTHS[0]})
+    TASKS=(${TASKS[0]})
+    echo "Running in CI mode with reduced test set:"
+    echo "Sequence length: ${SEQ_LENGTHS[0]}"
+    echo "Task: ${TASKS[0]}"
+fi
 
 # Start client (prepare data / call model API / obtain final metrics)
 total_time=0

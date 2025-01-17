@@ -43,11 +43,9 @@ jobs:
         env:
           NUM_SAMPLES: 1
           LIQUID_SERVER: ${{ vars.LIQUID_SERVER }}
-          LIQUID_API_KEY: ${{ secrets.LIQUID_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.LIQUID_API_KEY }}
+          CI: true
         run: |
-          export OPENAI_API_KEY="$LIQUID_API_KEY"
-          export LIQUID_SERVER="$LIQUID_SERVER"
-          export NUM_SAMPLES="$NUM_SAMPLES"
           ./run_ruler.sh
 
       - name: Create Job Summary with CSV Tables

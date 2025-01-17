@@ -1,11 +1,31 @@
 # Evaluating Liquid Models on RULER
-`ruler.sh` contains the basic logic for evaluating Liquid 3B on RULER.
 
-**Setup:**
-1. Start with a new conda environment with `python=3.11`, e.g. via
-```
-conda create -n ruler python=3.11
-conda activate ruler
-```
+## Setup
+
+1. Start with a new conda environment with `python=3.11`:
+
+  ```bash
+  conda create -n ruler python=3.11
+  conda activate ruler
+  ```
+
 2. Get Liquid API key from [labs](https://labs.liquid.ai/settings).
-2. Run `bash ruler.sh --liquid-api-key <LIQUID_API_KEY>` to install necessary packages and run RULER.
+
+3. Run `./ruler.sh --liquid-api-key <LIQUID_API_KEY>` to install necessary packages and run RULER.
+
+  | Parameter | Required | Description | Default |
+  | --- | --- | --- | --- |
+  | `--liquid-api-key <API-KEY>` | Yes | Inference server API key. | |
+  | `--liquid-server <SERVER-URL>` | No | Inference server URL base. | `https://inference-1.liquid.ai` |
+  | `--skip-install` | No | Skip dependency installation. Useful for re-running the script. | |
+  | `--num-samples <N>` | No | Number of samples to run. | 100 |
+
+## Troubleshooting
+
+### Installation error with `GLIBCXX_3.4.20' not found`
+
+Run the following command to create a symbolic link to the system's `libstdc++.so.6` in the conda environment:
+
+```bash
+ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ${CONDA_PREFIX}/lib/libstdc++.so.6
+```

@@ -34,7 +34,7 @@ MODEL_SELECT() {
             MODEL_FRAMEWORK="liquid"
             TOKENIZER_PATH=$MODEL_PATH
             TOKENIZER_TYPE="liquid"
-            OPEN_API_KEY=""
+            OPENAI_API_KEY="$OPENAI_API_KEY"
             ;;
         llama2-7b-chat)
             MODEL_PATH="${MODEL_DIR}/llama2-7b-chat-hf"
@@ -57,7 +57,7 @@ MODEL_SELECT() {
             MODEL_FRAMEWORK="openai"
             TOKENIZER_PATH="cl100k_base"
             TOKENIZER_TYPE="openai"
-            OPENAI_API_KEY=""
+            OPENAI_API_KEY="$OPENAI_API_KEY"
             AZURE_ID=""
             AZURE_SECRET=""
             AZURE_ENDPOINT=""
@@ -68,7 +68,7 @@ MODEL_SELECT() {
             MODEL_FRAMEWORK="openai"
             TOKENIZER_PATH="cl100k_base"
             TOKENIZER_TYPE="openai"
-            OPENAI_API_KEY=""
+            OPENAI_API_KEY="$OPENAI_API_KEY"
             AZURE_ID=""
             AZURE_SECRET=""
             AZURE_ENDPOINT=""

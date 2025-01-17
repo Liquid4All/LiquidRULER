@@ -1,0 +1,84 @@
+name: Run API Evaluation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  run-api-eval:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Cache conda
+        uses: actions/cache@v3
+        env:
+          # increase this value to reset cache
+          CACHE_NUMBER: 0
+        with:
+          path: |
+            ~/conda_pkgs_dir
+            ~/.cache/pip
+          key:
+            ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('RULER/custom_requirements.txt') }}
+
+      - name: Setup conda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: ruler
+          python-version: '3.11'
+          channels: conda-forge,defaults
+          channel-priority: strict
+          auto-update-conda: true
+          auto-activate-base: false
+          # necessary for conda to work with the cache
+          use-only-tar-bz2: true
+
+      - name: Install dependencies
+        working-directory: RULER
+        run: |
+          ./install_script.sh
+
+      - name: Run API evaluation script
+        working-directory: RULER
+        env:
+          NUM_SAMPLES: 1
+          LIQUID_SERVER: ${{ vars.LIQUID_SERVER }}
+          OPENAI_API_KEY: ${{ secrets.LIQUID_API_KEY }}
+          CI: true
+        run: |
+          ./run_ruler.sh
+
+      - name: Output result summary tables
+        working-directory: RULER
+        run: |
+          ls -alh scripts/benchmark_root/lfm-3b/synthetic/*/pred/*
+          for csv_file in scripts/benchmark_root/lfm-3b/synthetic/*/pred/summary*.csv; do
+            if [ -f "$csv_file" ]; then
+              echo "Found summary CSV file: $csv_file"
+              # Print the file path as a header
+              echo "**\`$csv_file\`**" >> $GITHUB_STEP_SUMMARY
+
+              # convert CSV to markdown table
+              {
+                head -n1 "$csv_file" | sed 's/,/ | /g' | sed 's/^/| /' | sed 's/$/ |/';
+                echo -n "| " && head -n1 "$csv_file" | sed 's/[^,]/-/g; s/,/ | /g' | sed 's/$/ |/';
+                tail -n +2 "$csv_file" | sed 's/,/ | /g' | sed 's/^/| /' | sed 's/$/ |/';
+              } >> $GITHUB_STEP_SUMMARY
+
+              echo -e "\n" >> $GITHUB_STEP_SUMMARY
+            fi
+          done

@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         working-directory: RULER
         run: |
-          pip install cython
+          python -m pip install cython
           ./install_script.sh
 
       - name: Run API Evaluation Script

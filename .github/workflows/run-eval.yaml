@@ -46,7 +46,6 @@ jobs:
         shell: bash -l {0}
         working-directory: RULER
         run: |
-          conda install cython
           ./install_script.sh
 
       - name: Run API evaluation script

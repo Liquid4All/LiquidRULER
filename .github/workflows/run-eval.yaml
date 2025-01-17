@@ -30,7 +30,7 @@ jobs:
           key:
             ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('RULER/custom_requirements.txt') }}
 
-      - name: Setup Conda
+      - name: Setup conda
         uses: conda-incubator/setup-miniconda@v3
         with:
           activate-environment: ruler
@@ -49,7 +49,7 @@ jobs:
           conda install cython
           ./install_script.sh
 
-      - name: Run API Evaluation Script
+      - name: Run API evaluation script
         shell: bash -l {0}
         working-directory: RULER
         env:
@@ -60,22 +60,25 @@ jobs:
         run: |
           ./run_ruler.sh
 
-      - name: Create Job Summary with CSV Tables
+      - name: Output result summary tables
         shell: bash -l {0}
         working-directory: RULER
         run: |
-          for csv_file in scripts/benchmark_root/lfm_3b/synthetic/*/pred/summary.csv; do
+          pwd
+          ls -alh */benchmark_root/lfm_3b/synthetic/*/pred/*
+          for csv_file in */benchmark_root/lfm_3b/synthetic/*/pred/summary*.csv; do
             if [ -f "$csv_file" ]; then
+              echo "Found summary CSV file: $csv_file"
               # Print the file path as a header
               echo "**`$csv_file`**" >> $GITHUB_STEP_SUMMARY
-          
+
               # convert CSV to markdown table
               {
                 head -n1 "$csv_file" | sed 's/,/ | /g' | sed 's/^/| /' | sed 's/$/ |/';
                 echo -n "| " && head -n1 "$csv_file" | sed 's/[^,]/-/g; s/,/ | /g' | sed 's/$/ |/';
                 tail -n +2 "$csv_file" | sed 's/,/ | /g' | sed 's/^/| /' | sed 's/$/ |/';
               } >> $GITHUB_STEP_SUMMARY
-          
+
               echo -e "\n" >> $GITHUB_STEP_SUMMARY
             fi
           done

@@ -32,5 +32,8 @@ VOLUME /app/RULER/benchmark_root
 # Set working directory
 WORKDIR /app/RULER
 
-# Entrypoint will be added in next step
-CMD ["./run_ruler.sh"]
+# Copy and set entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

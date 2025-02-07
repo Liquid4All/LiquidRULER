@@ -7,12 +7,27 @@ SHELL ["conda", "run", "-n", "ruler", "/bin/bash", "-c"]
 # Build stage for installing dependencies and downloading datasets
 FROM base AS builder
 WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    g++ \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY . .
+
+# Install Python dependencies in steps for better error handling
 RUN cd RULER && \
-    pip install cython torch torchvision torchaudio && \
+    pip install cython && \
+    pip install torch torchvision torchaudio && \
+    pip install "fasttext @ git+https://github.com/facebookresearch/fastText.git" && \
     pip install -r custom_requirements.txt && \
-    pip install torchaudio --upgrade && \
-    cd scripts/data/synthetic/json/ && \
+    pip install torchaudio --upgrade
+
+# Download datasets
+RUN cd RULER/scripts/data/synthetic/json/ && \
     python download_paulgraham_essay.py && \
     bash download_qa_dataset.sh
 

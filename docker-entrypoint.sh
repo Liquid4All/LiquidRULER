@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+
+# Validate required environment variables
+if [ -z "${LIQUID_API_KEY}" ]; then
+    echo "Error: LIQUID_API_KEY environment variable is required"
+    exit 1
+fi
+
+# Export variables for the benchmark
+export OPENAI_API_KEY="${LIQUID_API_KEY}"
+export LIQUID_SERVER="${LIQUID_SERVER:-https://inference-1.liquid.ai}"
+export NUM_SAMPLES="${NUM_SAMPLES:-100}"
+
+# Run the benchmark
+cd /app/RULER
+./run_ruler.sh

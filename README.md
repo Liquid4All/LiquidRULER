@@ -22,6 +22,22 @@ All `ruler.sh` parameters:
 | `--skip-install` | No | Skip dependency installation. Useful for re-running the script. | |
 | `--num-samples <N>` | No | Number of samples to run. | 100 |
 
+## Docker Usage
+
+Run benchmarks using Docker:
+
+```bash
+docker run -e LIQUID_API_KEY=<your-api-key> \
+           -e LIQUID_SERVER=<server-url> \
+           -e NUM_SAMPLES=<num-samples> \
+           liquid4all/ruler:latest
+```
+
+Environment variables:
+- `LIQUID_API_KEY` (required): Your Liquid API key
+- `LIQUID_SERVER` (optional): Inference server URL (default: https://inference-1.liquid.ai)
+- `NUM_SAMPLES` (optional): Number of samples to run (default: 100)
+
 ## Troubleshooting
 
 ### Installation error with `GLIBCXX_3.4.20' not found`

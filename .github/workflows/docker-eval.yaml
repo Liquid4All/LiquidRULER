@@ -33,7 +33,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Create benchmark directory
-        run: mkdir -p scripts/benchmark_root
+        run: mkdir -p benchmark_root
 
       - name: Run benchmark in Docker
         env:
@@ -47,13 +47,13 @@ jobs:
             -e LIQUID_SERVER=$LIQUID_SERVER \
             -e NUM_SAMPLES=$NUM_SAMPLES \
             -e CI=$CI \
-            -v $PWD/scripts/benchmark_root:/app/RULER/scripts/benchmark_root \
+            -v $PWD/benchmark_root:/app/RULER/scripts/benchmark_root \
             liquid4all/ruler:latest
 
       - name: Output result summary tables
         run: |
-          ls -alh scripts/benchmark_root/lfm-3b/synthetic/*/pred/*
-          for csv_file in scripts/benchmark_root/lfm-3b/synthetic/*/pred/summary*.csv; do
+          ls -alh benchmark_root/lfm-3b/synthetic/*/pred/*
+          for csv_file in benchmark_root/lfm-3b/synthetic/*/pred/summary*.csv; do
             if [ -f "$csv_file" ]; then
               echo "Found summary CSV file: $csv_file"
               # Print the file path as a header

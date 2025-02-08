@@ -44,7 +44,7 @@ ENV LIQUID_SERVER="https://inference-1.liquid.ai"
 ENV NUM_SAMPLES=100
 
 # Create volume for benchmark results
-VOLUME /app/RULER/benchmark_root
+VOLUME /app/RULER/scripts/benchmark_root
 
 # Set working directory
 WORKDIR /app/RULER

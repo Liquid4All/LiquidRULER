@@ -23,15 +23,9 @@ COPY . .
 # Install Python dependencies in steps for better error handling
 RUN cd RULER && \
     pip install cython && \
-    pip install torch torchvision torchaudio && \
-    pip install "fasttext @ git+https://github.com/facebookresearch/fastText.git" && \
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
     pip install -r custom_requirements.txt && \
-    pip install torchaudio --upgrade
-
-# Download datasets
-RUN cd RULER/scripts/data/synthetic/json/ && \
-    python download_paulgraham_essay.py && \
-    bash download_qa_dataset.sh
+    pip install "fasttext @ git+https://github.com/facebookresearch/fastText.git"
 
 # Final stage with minimal runtime dependencies
 FROM base

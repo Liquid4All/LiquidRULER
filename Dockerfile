@@ -20,12 +20,16 @@ RUN apt-get update && apt-get install -y \
 
 COPY . .
 
-# Install Python dependencies in steps for better error handling
-RUN cd RULER && \
-    pip install cython && \
-    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
-    pip install -r custom_requirements.txt && \
-    pip install "fasttext @ git+https://github.com/facebookresearch/fastText.git"
+# Install Python dependencies in steps for better caching
+RUN --mount=type=cache,target=/root/.cache/pip \
+    cd RULER && \
+    pip install --no-cache-dir cython && \
+    pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
+    pip install --no-cache-dir -r custom_requirements.txt && \
+    pip install --no-cache-dir "fasttext @ git+https://github.com/facebookresearch/fastText.git"
+
+# Clean up pip cache to reduce image size
+RUN pip cache purge
 
 # Final stage with minimal runtime dependencies
 FROM base

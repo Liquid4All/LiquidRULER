@@ -2,8 +2,7 @@ FROM continuumio/miniconda3:latest AS base
 
 # Create conda environment
 RUN conda create -n ruler python=3.11 -y && \
-    conda run -n ruler pip install pyyaml nltk && \
-    conda run -n ruler python -c "import nltk; nltk.download('punkt')"
+    conda run -n ruler pip install pyyaml
 
 SHELL ["conda", "run", "-n", "ruler", "/bin/bash", "-c"]
 
@@ -39,7 +38,6 @@ FROM base
 WORKDIR /app
 COPY --from=builder /app .
 COPY --from=builder /opt/conda/envs/ruler /opt/conda/envs/ruler
-COPY --from=builder /root/nltk_data /root/nltk_data
 
 # Set default environment variables
 ENV LIQUID_SERVER="https://inference-1.liquid.ai"

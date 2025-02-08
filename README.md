@@ -27,9 +27,14 @@ All `ruler.sh` parameters:
 Run benchmarks using Docker:
 
 ```bash
+# Create results directory if it doesn't exist
+mkdir -p ./benchmark_root
+
+# Run benchmarks
 docker run -e LIQUID_API_KEY=<your-api-key> \
            -e LIQUID_SERVER=<server-url> \
            -e NUM_SAMPLES=<num-samples> \
+           -v $(pwd)/benchmark_root:/app/RULER/benchmark_root \
            liquid4all/ruler:latest
 ```
 
@@ -37,6 +42,8 @@ Environment variables:
 - `LIQUID_API_KEY` (required): Your Liquid API key
 - `LIQUID_SERVER` (optional): Inference server URL (default: https://inference-1.liquid.ai)
 - `NUM_SAMPLES` (optional): Number of samples to run (default: 100)
+
+The benchmark results will be stored in the `./benchmark_root` directory relative to where you run the Docker command.
 
 ## Troubleshooting
 

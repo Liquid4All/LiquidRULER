@@ -16,5 +16,7 @@ export NUM_SAMPLES="${NUM_SAMPLES:-100}"
 cd /app/RULER
 mkdir -p scripts/benchmark_root
 
-# Run the benchmark
+# Run the benchmark and evaluation
 ./run_ruler.sh
+cd scripts/eval
+python evaluate.py --data-dir ../benchmark_root/lfm-3b/synthetic

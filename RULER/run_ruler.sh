@@ -3,7 +3,7 @@
 set -euo pipefail
 
 cd scripts/
-./run.sh lfm-3b synthetic
+./run.sh "$MODEL_NAME" synthetic
 
 calculate_average() {
     echo "Average score:"
@@ -12,16 +12,16 @@ calculate_average() {
 
 # See results in benchmark_root
 echo "Context length: 32768"
-calculate_average benchmark_root/lfm-3b/synthetic/32768/pred/summary.csv
+calculate_average "benchmark_root/$MODEL_NAME/synthetic/32768/pred/summary.csv"
 echo
 
 echo "Context length: 16384"
-calculate_average benchmark_root/lfm-3b/synthetic/16384/pred/summary.csv
+calculate_average "benchmark_root/$MODEL_NAME/synthetic/16384/pred/summary.csv"
 echo
 
 echo "Context length: 8192"
-calculate_average benchmark_root/lfm-3b/synthetic/8192/pred/summary.csv
+calculate_average "benchmark_root/$MODEL_NAME/synthetic/8192/pred/summary.csv"
 echo
 
 echo "Context length: 4096"
-calculate_average benchmark_root/lfm-3b/synthetic/4096/pred/summary.csv
+calculate_average "benchmark_root/$MODEL_NAME/synthetic/4096/pred/summary.csv"

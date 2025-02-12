@@ -8,8 +8,8 @@ if [ -z "${LIQUID_API_KEY}" ]; then
 fi
 
 # Export variables for the benchmark
-export OPENAI_API_KEY="${LIQUID_API_KEY}"
-export LIQUID_SERVER="${LIQUID_SERVER:-https://inference-1.liquid.ai}"
+export MODEL_API_KEY="${LIQUID_API_KEY}"
+export MODEL_URL="${MODEL_URL:-https://inference-1.liquid.ai}"
 export NUM_SAMPLES="${NUM_SAMPLES:-100}"
 export CI="${CI:-false}"
 

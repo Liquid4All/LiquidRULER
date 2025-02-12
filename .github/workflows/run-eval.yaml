@@ -57,8 +57,8 @@ jobs:
         working-directory: RULER
         env:
           NUM_SAMPLES: 1
-          LIQUID_SERVER: ${{ vars.LIQUID_SERVER }}
-          OPENAI_API_KEY: ${{ secrets.LIQUID_API_KEY }}
+          MODEL_URL: ${{ vars.MODEL_URL }}
+          MODEL_API_KEY: ${{ secrets.LIQUID_API_KEY }}
           CI: true
         run: |
           ./run_ruler.sh

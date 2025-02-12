@@ -14,11 +14,6 @@ export NUM_SAMPLES="${NUM_SAMPLES:-100}"
 export CI="${CI:-false}"
 
 # Create benchmark_root directory
-cd /app/RULER/scripts
-mkdir -p benchmark_root
-
-# Run the benchmark and evaluation
-cd ..
-./run_ruler.sh lfm-3b synthetic
-cd scripts/eval
-python evaluate.py --data-dir ../benchmark_root/lfm-3b/synthetic
+cd /app/RULER
+mkdir -p scripts/benchmark_root
+./run_ruler.sh

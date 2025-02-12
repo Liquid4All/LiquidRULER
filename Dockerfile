@@ -26,6 +26,10 @@ RUN pip cache purge
 WORKDIR /app
 COPY . .
 
+WORKDIR /app/RULER/scripts/data/synthetic/json
+RUN python download_paulgraham_essay.py
+RUN bash download_qa_dataset.sh
+
 FROM base AS runner
 WORKDIR /app
 

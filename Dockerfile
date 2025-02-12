@@ -41,8 +41,7 @@ RUN apt-get update && apt-get install -y \
 COPY --from=builder /app .
 COPY --from=builder /usr/local /usr/local
 
-RUN python -c "import nltk; nltk.download('punkt')"
-
+RUN python -c "import nltk; nltk.download('punkt'); nltk.download('punkt_tab')"
 
 VOLUME /app/RULER/scripts/benchmark_root
 

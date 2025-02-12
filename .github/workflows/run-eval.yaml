@@ -4,9 +4,17 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'RULER/**'
+      - 'run-local.sh'
+      - '.github/workflows/run-eval.yaml'
   pull_request:
     branches:
       - main
+    paths:
+      - 'RULER/**'
+      - 'run-local.sh'
+      - '.github/workflows/run-eval.yaml'
   workflow_dispatch:
 
 concurrency:

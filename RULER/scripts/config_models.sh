@@ -28,8 +28,8 @@ MODEL_SELECT() {
     ENGINE_DIR=$3
     
     case $MODEL_NAME in
-        lfm-3b)
-            MODEL_PATH="lfm-3b"
+        lfm-*)
+            MODEL_PATH="${MODEL_NAME}"
             MODEL_TEMPLATE_TYPE="base"
             MODEL_FRAMEWORK="liquid"
             TOKENIZER_PATH=$MODEL_PATH

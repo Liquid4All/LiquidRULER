@@ -4,7 +4,7 @@
 
 ```bash
 ./run-docker.sh \
-  --model-url <<MODEL_URL>> \
+  --model-url <MODEL_URL> \
   --model-name <MODEL_NAME> \
   --model-api-key <MODEL_API_KEY>
 ```
@@ -40,7 +40,7 @@ conda activate ruler
 
 To run against Liquid `labs`, get API key [here](https://labs.liquid.ai/settings).
 
-3. Run `./run-local.sh --model-url <MODEL-URL> --model-name <MODEL-NAME> --model-api-key <LIQUID-API-KEY>` to install necessary packages and run RULER.
+3. Run `./run-local.sh --model-url <MODEL_URL> --model-name <MODEL_NAME> --model-api-key <LIQUID_API_KEY>` to install necessary packages and run RULER.
 
 Examples:
 
@@ -66,9 +66,9 @@ These parameters are available for both the `run-docker.sh` and `run-local.sh` s
 
 | Parameter | Required | Description | Default |
 | --- | --- | --- | --- |
-| `--model-url <SERVER-URL>` | Yes | Inference server URL base. | |
-| `--model-name <MODEL-NAME>` | Yes | Model ID. | |
-| `--model-api-key <API-KEY>` | Yes | Inference server API key. | |
+| `--model-url <SERVER_URL>` | Yes | Inference server URL base. | |
+| `--model-name <MODEL_NAME>` | Yes | Model ID. | |
+| `--model-api-key <API_KEY>` | Yes | Inference server API key. | |
 | `--skip-install` | No | Skip dependency installation. Useful for re-running the script. | |
 | `--num-samples <N>` | No | Number of samples to run. | 100 |
 | `--ci` | No | Run in CI mode with as few tests as possible. | |

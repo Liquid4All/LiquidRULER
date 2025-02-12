@@ -4,9 +4,9 @@
 
 ```bash
 ./run-docker.sh \
-  --model-url <SERVER-URL> \
-  --model-name <model-name> \
-  --model-api-key <LIQUID_API_KEY>
+  --model-url <<MODEL_URL>> \
+  --model-name <MODEL_NAME> \
+  --model-api-key <MODEL_API_KEY>
 ```
 
 The benchmark results will be stored in the `./benchmark_root` directory relative to where you run the Docker command.
@@ -18,13 +18,13 @@ Examples:
 ./run-docker.sh \
   --model-url https://inference-1.liquid.ai \
   --model-name lfm-40b \
-  --model-api-key <LIQUID_API_KEY>
+  --model-api-key <MODEL_API_KEY>
 
 # run on-prem
 ./run-docker.sh \
   --model-url http://localhost:8080 \
   --model-name lfm-40b \
-  --model-api-key <LIQUID_API_KEY>
+  --model-api-key <MODEL_API_KEY>
 ```
 
 ## Run locally without Docker
@@ -49,13 +49,13 @@ Examples:
 ./run-local.sh \
   --model-url https://inference-1.liquid.ai \
   --model-name lfm-40b \
-  --model-api-key <LIQUID_API_KEY>
+  --model-api-key <MODEL_API_KEY>
 
 # run on-prem
 ./run-local.sh \
   --model-url http://localhost:8080 \
   --model-name lfm-40b \
-  --model-api-key <LIQUID_API_KEY>
+  --model-api-key <MODEL_API_KEY>
 ```
 
 The benchmark results will be stored in the `./benchmark_root` directory under the project root.

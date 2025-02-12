@@ -58,7 +58,8 @@ jobs:
         env:
           NUM_SAMPLES: 1
           MODEL_URL: ${{ vars.MODEL_URL }}
-          MODEL_API_KEY: ${{ secrets.LIQUID_API_KEY }}
+          MODEL_API_KEY: ${{ secrets.MODEL_API_KEY }}
+          MODEL_NAME: lfm-3b
           CI: true
         run: |
           ./run_ruler.sh

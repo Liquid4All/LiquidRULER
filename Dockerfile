@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
 
 # copy requirements first to leverage docker cache
 COPY RULER/custom_requirements.txt RULER/custom_requirements.txt
+WORKDIR /app/RULER
 RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install cython torch torchvision torchaudio
 RUN --mount=type=cache,target=/root/.cache/pip \
@@ -21,6 +22,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 RUN pip cache purge
 
+# copy the rest of the app
+WORKDIR /app
 COPY . .
 
 FROM base AS runner

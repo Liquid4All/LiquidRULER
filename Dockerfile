@@ -28,10 +28,12 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 RUN pip cache purge
 
 # Final stage with minimal runtime dependencies
-FROM base
+FROM base AS runner
 WORKDIR /app
 COPY --from=builder /app .
 COPY --from=builder /usr/local /usr/local
+
+RUN python -c "import nltk; nltk.download('punkt')"
 
 # Set default environment variables
 ENV LIQUID_SERVER="https://inference-1.liquid.ai"

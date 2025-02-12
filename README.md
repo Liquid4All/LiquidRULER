@@ -11,7 +11,7 @@
 
 The benchmark results will be stored in the `./benchmark_root` directory relative to where you run the Docker command.
 
-Examples:
+**Examples**
 
 ```bash
 # run against liquid labs
@@ -22,7 +22,7 @@ Examples:
 
 # run on-prem
 ./run-docker.sh \
-  --model-url http://localhost:8080 \
+  --model-url http://localhost:8000 \
   --model-name lfm-40b \
   --model-api-key <MODEL_API_KEY>
 ```
@@ -42,7 +42,7 @@ To run against Liquid `labs`, get API key [here](https://labs.liquid.ai/settings
 
 3. Run `./run-local.sh --model-url <MODEL_URL> --model-name <MODEL_NAME> --model-api-key <LIQUID_API_KEY>` to install necessary packages and run RULER.
 
-Examples:
+**Examples**
 
 ```bash
 # run against liquid labs
@@ -53,7 +53,7 @@ Examples:
 
 # run on-prem
 ./run-local.sh \
-  --model-url http://localhost:8080 \
+  --model-url http://localhost:8000 \
   --model-name lfm-40b \
   --model-api-key <MODEL_API_KEY>
 ```

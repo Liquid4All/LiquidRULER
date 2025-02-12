@@ -28,13 +28,13 @@ MODEL_SELECT() {
     ENGINE_DIR=$3
     
     case $MODEL_NAME in
-        lfm-3b)
-            MODEL_PATH="lfm-3b"
+        lfm-*)
+            MODEL_PATH="${MODEL_NAME}"
             MODEL_TEMPLATE_TYPE="base"
             MODEL_FRAMEWORK="liquid"
             TOKENIZER_PATH=$MODEL_PATH
             TOKENIZER_TYPE="liquid"
-            OPENAI_API_KEY="$OPENAI_API_KEY"
+            MODEL_API_KEY="$MODEL_API_KEY"
             ;;
         llama2-7b-chat)
             MODEL_PATH="${MODEL_DIR}/llama2-7b-chat-hf"
@@ -57,7 +57,7 @@ MODEL_SELECT() {
             MODEL_FRAMEWORK="openai"
             TOKENIZER_PATH="cl100k_base"
             TOKENIZER_TYPE="openai"
-            OPENAI_API_KEY="$OPENAI_API_KEY"
+            MODEL_API_KEY="$MODEL_API_KEY"
             AZURE_ID=""
             AZURE_SECRET=""
             AZURE_ENDPOINT=""
@@ -68,7 +68,7 @@ MODEL_SELECT() {
             MODEL_FRAMEWORK="openai"
             TOKENIZER_PATH="cl100k_base"
             TOKENIZER_TYPE="openai"
-            OPENAI_API_KEY="$OPENAI_API_KEY"
+            MODEL_API_KEY="$MODEL_API_KEY"
             AZURE_ID=""
             AZURE_SECRET=""
             AZURE_ENDPOINT=""
@@ -103,5 +103,5 @@ MODEL_SELECT() {
     fi
 
 
-    echo "$MODEL_PATH:$MODEL_TEMPLATE_TYPE:$MODEL_FRAMEWORK:$TOKENIZER_PATH:$TOKENIZER_TYPE:$OPENAI_API_KEY:$GEMINI_API_KEY:$AZURE_ID:$AZURE_SECRET:$AZURE_ENDPOINT"
+    echo "$MODEL_PATH:$MODEL_TEMPLATE_TYPE:$MODEL_FRAMEWORK:$TOKENIZER_PATH:$TOKENIZER_TYPE:$MODEL_API_KEY:$GEMINI_API_KEY:$AZURE_ID:$AZURE_SECRET:$AZURE_ENDPOINT"
 }

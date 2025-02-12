@@ -1,6 +1,33 @@
 # Evaluating Liquid Models on RULER
 
-## Setup
+## Run with Docker
+
+```bash
+./run-docker.sh \
+  --model-url <MODEL_URL> \
+  --model-name <MODEL_NAME> \
+  --model-api-key <MODEL_API_KEY>
+```
+
+The benchmark results will be stored in the `./benchmark_root` directory relative to where you run the Docker command.
+
+Examples:
+
+```bash
+# run against liquid labs
+./run-docker.sh \
+  --model-url https://inference-1.liquid.ai \
+  --model-name lfm-40b \
+  --model-api-key <MODEL_API_KEY>
+
+# run on-prem
+./run-docker.sh \
+  --model-url http://localhost:8080 \
+  --model-name lfm-40b \
+  --model-api-key <MODEL_API_KEY>
+```
+
+## Run locally without Docker
 
 1. Start with a new conda environment with `python=3.11`:
 
@@ -9,18 +36,42 @@ conda create -n ruler python=3.11
 conda activate ruler
 ```
 
-2. Get Liquid API key from [labs](https://labs.liquid.ai/settings).
+2. Get the model provider URL and API key.
 
-3. Run `./ruler.sh --liquid-api-key <LIQUID_API_KEY>` to install necessary packages and run RULER.
+To run against Liquid `labs`, get API key [here](https://labs.liquid.ai/settings).
 
-All `ruler.sh` parameters:
+3. Run `./run-local.sh --model-url <MODEL_URL> --model-name <MODEL_NAME> --model-api-key <LIQUID_API_KEY>` to install necessary packages and run RULER.
+
+Examples:
+
+```bash
+# run against liquid labs
+./run-local.sh \
+  --model-url https://inference-1.liquid.ai \
+  --model-name lfm-40b \
+  --model-api-key <MODEL_API_KEY>
+
+# run on-prem
+./run-local.sh \
+  --model-url http://localhost:8080 \
+  --model-name lfm-40b \
+  --model-api-key <MODEL_API_KEY>
+```
+
+The benchmark results will be stored in the `./benchmark_root` directory under the project root.
+
+## Script parameters
+
+These parameters are available for both the `run-docker.sh` and `run-local.sh` scripts.
 
 | Parameter | Required | Description | Default |
 | --- | --- | --- | --- |
-| `--liquid-api-key <API-KEY>` | Yes | Inference server API key. | |
-| `--liquid-server <SERVER-URL>` | No | Inference server URL base. | `https://inference-1.liquid.ai` |
+| `--model-url <SERVER_URL>` | Yes | Inference server URL base. | |
+| `--model-name <MODEL_NAME>` | Yes | Model ID. | |
+| `--model-api-key <API_KEY>` | Yes | Inference server API key. | |
 | `--skip-install` | No | Skip dependency installation. Useful for re-running the script. | |
 | `--num-samples <N>` | No | Number of samples to run. | 100 |
+| `--ci` | No | Run in CI mode with as few tests as possible. | |
 
 ## Troubleshooting
 

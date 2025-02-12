@@ -119,14 +119,14 @@ class LiquidTokenizer:
         """
         self.model = model_path
 
-        self.base_url = base_url if base_url else os.environ["LIQUID_SERVER"]
+        self.base_url = base_url if base_url else os.environ["MODEL_URL"]
         if self.base_url is None:
-            raise ValueError("LIQUID_SERVER is missing from the environment variables.")
+            raise ValueError("MODEL_URL is missing from the environment variables.")
         self.base_url = self.base_url.rstrip("/")
 
-        self.api_token = api_token if api_token else os.environ["OPENAI_API_KEY"]
+        self.api_token = api_token if api_token else os.environ["MODEL_API_KEY"]
         if self.api_token is None:
-            raise ValueError("OPENAI_API_KEY is missing from the environment variables.")
+            raise ValueError("MODEL_API_KEY is missing from the environment variables.")
 
     @retry(wait=wait_fixed(60) + wait_random(0, 10), stop=stop_after_attempt(3))
     def text_to_tokens(self, text: str) -> List[int]:

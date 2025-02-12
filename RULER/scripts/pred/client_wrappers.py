@@ -210,7 +210,7 @@ class OpenAIClient:
             'gpt-4': 128000,
             'gpt-35-turbo-16k': 16384,
         }
-        self.openai_api_key = os.environ["OPENAI_API_KEY"]
+        self.openai_api_key = os.environ["MODEL_API_KEY"]
         self.azure_api_id = os.environ["AZURE_API_ID"]
         self.azure_api_secret = os.environ["AZURE_API_SECRET"]
         self.azure_api_endpoint = os.environ["AZURE_API_ENDPOINT"]
@@ -423,13 +423,13 @@ class LiquidClient():
         model2length = {
             'lfm-3b': 32768,
         }
-        self.openai_api_key = os.environ["OPENAI_API_KEY"]
+        self.openai_api_key = os.environ["MODEL_API_KEY"]
         if self.openai_api_key is None:
-            raise ValueError("OPENAI_API_KEY is missing from the environment variables.")
-        self.liquid_server = os.environ["LIQUID_SERVER"]
-        if self.liquid_server is None:
-            raise ValueError("LIQUID_SERVER is missing from the environment variables.")
-        self.liquid_server = self.liquid_server.rstrip("/")
+            raise ValueError("MODEL_API_KEY is missing from the environment variables.")
+        self.model_url = os.environ["MODEL_URL"]
+        if self.model_url is None:
+            raise ValueError("MODEL_URL is missing from the environment variables.")
+        self.model_url = self.model_url.rstrip("/")
 
         self.model_name = model_name
         self.max_length = model2length[self.model_name]
@@ -443,10 +443,10 @@ class LiquidClient():
         if self.openai_api_key:
             self.client = OpenAI(
                 api_key=self.openai_api_key,
-                base_url=f"{self.liquid_server}/v1"
+                base_url=f"{self.model_url}/v1"
             )
         else:
-            raise ValueError("Need to set OPENAI_API_KEY with Liquid Labs key")
+            raise ValueError("Need to set MODEL_API_KEY with Liquid Labs key")
            
     @retry(wait=wait_random_exponential(min=15, max=60), stop=stop_after_attempt(3))
     def _send_request(self, request):

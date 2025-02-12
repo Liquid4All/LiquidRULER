@@ -23,13 +23,15 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 RUN pip cache purge
 
-# copy the rest of the app
-WORKDIR /app
-COPY . .
-
+# copy data scripts and download dataset
+COPY RULER/scripts/data /app/RULER/scripts/data
 WORKDIR /app/RULER/scripts/data/synthetic/json
 RUN python download_paulgraham_essay.py
 RUN bash download_qa_dataset.sh
+
+# copy the rest of the app
+WORKDIR /app
+COPY . .
 
 FROM base AS runner
 WORKDIR /app

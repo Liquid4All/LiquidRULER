@@ -30,6 +30,11 @@ RUN pip cache purge
 # Final stage with minimal runtime dependencies
 FROM base AS runner
 WORKDIR /app
+
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/* \
+
 COPY --from=builder /app .
 COPY --from=builder /usr/local /usr/local
 

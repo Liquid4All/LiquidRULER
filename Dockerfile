@@ -1,10 +1,4 @@
-FROM continuumio/miniconda3:latest AS base
-
-# Create conda environment
-RUN conda create -n ruler python=3.11 -y && \
-    conda run -n ruler pip install pyyaml
-
-SHELL ["conda", "run", "-n", "ruler", "/bin/bash", "-c"]
+FROM python:3.11-slim AS base
 
 # Build stage for installing dependencies and downloading datasets
 FROM base AS builder
@@ -19,14 +13,16 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . .
+WORKDIR /app/RULER
 
-# Install Python dependencies in steps for better caching
 RUN --mount=type=cache,target=/root/.cache/pip \
-    cd RULER && \
-    pip install --no-cache-dir cython && \
-    pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu && \
-    pip install --no-cache-dir -r custom_requirements.txt && \
-    pip install --no-cache-dir "fasttext @ git+https://github.com/facebookresearch/fastText.git"
+    python -m pip install cython torch torchvision torchaudio
+
+RUN --mount=type=cache,target=/root/.cache/pip \
+    python -m pip install -r custom_requirements.txt
+
+RUN --mount=type=cache,target=/root/.cache/pip \
+    python -m pip install torchaudio --upgrade
 
 # Clean up pip cache to reduce image size
 RUN pip cache purge
@@ -35,7 +31,7 @@ RUN pip cache purge
 FROM base
 WORKDIR /app
 COPY --from=builder /app .
-COPY --from=builder /opt/conda/envs/ruler /opt/conda/envs/ruler
+COPY --from=builder /usr/local /usr/local
 
 # Set default environment variables
 ENV LIQUID_SERVER="https://inference-1.liquid.ai"

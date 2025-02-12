@@ -3,13 +3,13 @@
 set -euo pipefail
 
 usage() {
-  echo "Usage: $0 --model-url <model-url> --model-name <model-name> --model-api-key <api-key> [--skip-install] [--num-samples <num-samples>] [--ci]"
+  echo "Usage: $0 --model-url <model-url> --model-name <model-name> [--model-api-key <api-key>] [--skip-install] [--num-samples <num-samples>] [--ci]"
   exit 1
 }
 
 MODEL_URL=""
 MODEL_NAME=""
-MODEL_API_KEY=""
+MODEL_API_KEY="placeholder"
 SKIP_INSTALL=false
 NUM_SAMPLES=100
 CI=false

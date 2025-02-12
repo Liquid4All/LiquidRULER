@@ -33,7 +33,7 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
     ffmpeg \
-    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app .
 COPY --from=builder /usr/local /usr/local

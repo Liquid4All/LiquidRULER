@@ -132,6 +132,7 @@ class LiquidTokenizer:
     def text_to_tokens(self, text: str) -> List[int]:
         chat_messages = [{"role": "user", "content": text}]
         token_len = self.tokenize_chat(model=self.model, messages=chat_messages, add_generation_prompt=True, add_special_tokens=False)["token_count"]
+        token_len += 64  # add extra buffer to prevent overflow
         tokens = list(range(token_len))
         return tokens
 

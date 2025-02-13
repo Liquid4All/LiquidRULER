@@ -64,11 +64,7 @@ if [ -z "$MODEL_API_KEY" ]; then
   usage
 fi
 
-USER_ID=$(id -u)
-GROUP_ID=$(id -g)
-
 docker run --rm -it \
-  --user "$USER_ID:$GROUP_ID" \
   --network="host" \
   -e MODEL_API_KEY="$MODEL_API_KEY" \
   -e MODEL_URL="$MODEL_URL" \

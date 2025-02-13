@@ -223,10 +223,10 @@ class OpenAIClient:
         
         import tiktoken
         self.encoding = tiktoken.get_encoding("cl100k_base")
-        self.max_length = model2length[self.model_name]
+        self.max_length = model2length.get(self.model_name, 32768)
         self.generation_kwargs = generation_kwargs
         self._create_client()
-        
+
     def _create_client(self,):
         from openai import OpenAI, AzureOpenAI
         

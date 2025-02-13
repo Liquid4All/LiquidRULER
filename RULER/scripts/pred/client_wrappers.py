@@ -33,6 +33,9 @@ from tenacity import (
 ) 
 
 
+DEFAULT_MAX_MODEL_LENGTH = 16384
+
+
 class Client(abc.ABC):
     def __init__(
         self,
@@ -223,7 +226,7 @@ class OpenAIClient:
         
         import tiktoken
         self.encoding = tiktoken.get_encoding("cl100k_base")
-        self.max_length = model2length.get(self.model_name, 32768)
+        self.max_length = model2length.get(self.model_name, DEFAULT_MAX_MODEL_LENGTH)
         self.generation_kwargs = generation_kwargs
         self._create_client()
 
@@ -433,7 +436,7 @@ class LiquidClient():
         self.model_url = self.model_url.rstrip("/")
 
         self.model_name = model_name
-        self.max_length = model2length.get(self.model_name, 32768)
+        self.max_length = model2length.get(self.model_name, DEFAULT_MAX_MODEL_LENGTH)
         self.generation_kwargs = generation_kwargs
         self._create_client()
         

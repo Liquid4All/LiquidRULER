@@ -64,7 +64,8 @@ if [ -z "$MODEL_API_KEY" ]; then
   usage
 fi
 
-docker run \
+docker run --rm -it \
+  --network="host" \
   -e MODEL_API_KEY="$MODEL_API_KEY" \
   -e MODEL_URL="$MODEL_URL" \
   -e MODEL_NAME="$MODEL_NAME" \
@@ -72,3 +73,5 @@ docker run \
   -e CI="$CI" \
   -v "$(pwd)/benchmark_root:/app/RULER/scripts/benchmark_root" \
   liquidai/ruler:latest
+
+sudo chown $(id -u):$(id -g) -R ./benchmark_root || true

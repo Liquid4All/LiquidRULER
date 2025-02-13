@@ -64,7 +64,7 @@ if [ -z "$MODEL_API_KEY" ]; then
   usage
 fi
 
-docker run -it \
+docker run --rm -it \
   --network="host" \
   -e MODEL_API_KEY="$MODEL_API_KEY" \
   -e MODEL_URL="$MODEL_URL" \

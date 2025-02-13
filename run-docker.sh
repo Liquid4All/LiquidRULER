@@ -73,3 +73,5 @@ docker run --rm -it \
   -e CI="$CI" \
   -v "$(pwd)/benchmark_root:/app/RULER/scripts/benchmark_root" \
   liquidai/ruler:latest
+
+sudo chown $(id -u):$(id -g) -R ./benchmark_root || true

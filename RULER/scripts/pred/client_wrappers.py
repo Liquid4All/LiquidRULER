@@ -422,6 +422,7 @@ class LiquidClient():
     ):  
         model2length = {
             'lfm-3b': 32768,
+            'lfm-7b': 32768,
         }
         self.openai_api_key = os.environ["MODEL_API_KEY"]
         if self.openai_api_key is None:
@@ -432,7 +433,7 @@ class LiquidClient():
         self.model_url = self.model_url.rstrip("/")
 
         self.model_name = model_name
-        self.max_length = model2length[self.model_name]
+        self.max_length = model2length.get(self.model_name, 32768)
         self.generation_kwargs = generation_kwargs
         self._create_client()
         

@@ -27,6 +27,9 @@ The benchmark results will be stored in the `./benchmark_root` directory relativ
   --model-api-key <MODEL_API_KEY>
 ```
 
+> [!IMPORTANT]
+> The script uses Python `requests` to call the `/tokenize` endpoint. It is important to include `http://` or `https://` in the model URL argument, especially when the URL is `localhost`. Otherwise, `requests` will throw the `no connection adapters were found` error.
+
 ## Run locally without Docker
 
 1. Start with a new conda environment with `python=3.11`:

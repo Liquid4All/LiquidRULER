@@ -3,6 +3,7 @@
 set -euo pipefail
 
 # install requirements
+python -m pip install cython
 python -m pip install -r custom_requirements.txt
 
 # download data

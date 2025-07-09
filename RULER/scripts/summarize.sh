@@ -30,7 +30,7 @@ process_context_length() {
 
     if [[ ! -f "$summary_file" ]]; then
         echo "Warning: $summary_file not found" >&2
-        return 1
+        return 0
     fi
 
     # Extract the score row - find the line that starts with "Score"

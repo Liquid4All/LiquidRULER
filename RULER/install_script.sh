@@ -3,9 +3,9 @@
 set -euo pipefail
 
 # install requirements
-python -m pip install cython torch torchvision torchaudio
+python -m pip install cython torch==2.6.0 torchvision==0.19.0 torchaudio==2.6.0
 python -m pip install -r custom_requirements.txt
-python -m pip install torchaudio --upgrade
+python -m pip install torchaudio==2.6.0
 
 # download data
 cd scripts/data/synthetic/json/

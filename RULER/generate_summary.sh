@@ -2,6 +2,12 @@
 
 set -euo pipefail
 
+if [ $# -eq 0 ]; then
+    echo "Error: Model name is required" >&2
+    echo "Usage: $0 <model_name>" >&2
+    exit 1
+fi
+
 MODEL_NAME="$1"
 
 # Function to convert context length to abbreviated form

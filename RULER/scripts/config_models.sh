@@ -28,7 +28,7 @@ MODEL_SELECT() {
     ENGINE_DIR=$3
     
     case $MODEL_NAME in
-        lfm-*)
+        lfm*-*)
             MODEL_PATH="${MODEL_NAME}"
             MODEL_TEMPLATE_TYPE="base"
             MODEL_FRAMEWORK="liquid"

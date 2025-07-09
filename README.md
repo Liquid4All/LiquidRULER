@@ -86,6 +86,10 @@ Run the following command to create a symbolic link to the system's `libstdc++.s
 ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ${CONDA_PREFIX}/lib/libstdc++.so.6
 ```
 
+### 404 error for calling `/tokenize`
+
+The 404 error can be misleading as if the `/tokenize` endpoint does not exist. However, it is more likely that the deployed model cannot be found. Please ensure that both the deployed model and the evaluation script are using the same model name.
+
 ## Acknowledgement
 
 This repository is modified from [NVIDIA/RULER](https://github.com/NVIDIA/RULER).

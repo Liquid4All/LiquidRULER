@@ -4,9 +4,22 @@ set -euo pipefail
 
 MODEL_NAME="$1"
 
+# Function to convert context length to abbreviated form
+get_abbreviated_context() {
+    local context_length="$1"
+    case "$context_length" in
+        4096) echo "4K" ;;
+        8192) echo "8K" ;;
+        16384) echo "16K" ;;
+        32768) echo "32K" ;;
+        *) echo "$context_length" ;;
+    esac
+}
+
 # Function to extract scores from summary.csv and calculate average
 process_context_length() {
     local context_length="$1"
+    local abbreviated_context=$(get_abbreviated_context "$context_length")
     local summary_file="benchmark_root/$MODEL_NAME/synthetic/$context_length/pred/summary.csv"
 
     if [[ ! -f "$summary_file" ]]; then
@@ -28,7 +41,7 @@ print(f'{sum(numeric_scores) / len(numeric_scores):.2f}')
 ")
 
     # Output the row: context_length,average_score,task1_score,task2_score,...
-    echo "$context_length,$average,$(echo "$score_line" | cut -d',' -f2-)"
+    echo "$abbreviated_context,$average,$(echo "$score_line" | cut -d',' -f2-)"
 }
 
 # Output CSV header

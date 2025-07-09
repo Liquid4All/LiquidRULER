@@ -194,16 +194,21 @@ def get_llm(tokens_to_generate):
             max_new_tokens=tokens_to_generate,
         )
     elif args.server_type == 'liquid':
-        from client_wrappers import LiquidClient
-        llm = LiquidClient(
-            model_name=args.model_name_or_path,
-            temperature=args.temperature,
-            top_k=args.top_k,
-            top_p=args.top_p,
-            random_seed=args.random_seed,
-            stop=args.stop_words,
-            tokens_to_generate=tokens_to_generate,
-        )
+        try:
+            from client_wrappers import LiquidClient
+            llm = LiquidClient(
+                model_name=args.model_name_or_path,
+                temperature=args.temperature,
+                top_k=args.top_k,
+                top_p=args.top_p,
+                random_seed=args.random_seed,
+                stop=args.stop_words,
+                tokens_to_generate=tokens_to_generate,
+            )
+        except ValueError as e:
+            print(f"ERROR: Failed to initialize Liquid client: {e}")
+            print("Please check that MODEL_API_KEY and MODEL_URL environment variables are properly set.")
+            sys.exit(1)
     else:
         raise RuntimeError(f'Unsupported server type {args.server_type}')
 

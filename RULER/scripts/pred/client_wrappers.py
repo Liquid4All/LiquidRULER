@@ -427,12 +427,12 @@ class LiquidClient():
             'lfm-3b': 32768,
             'lfm-7b': 32768,
         }
-        self.openai_api_key = os.environ["MODEL_API_KEY"]
-        if self.openai_api_key is None:
-            raise ValueError("MODEL_API_KEY is missing from the environment variables.")
-        self.model_url = os.environ["MODEL_URL"]
-        if self.model_url is None:
-            raise ValueError("MODEL_URL is missing from the environment variables.")
+        self.openai_api_key = os.environ.get("MODEL_API_KEY")
+        if not self.openai_api_key:
+            raise ValueError("MODEL_API_KEY environment variable is required for Liquid client. Please set it with your Liquid Labs API key.")
+        self.model_url = os.environ.get("MODEL_URL")
+        if not self.model_url:
+            raise ValueError("MODEL_URL environment variable is required for Liquid client. Please set it to your Liquid Labs API endpoint.")
         self.model_url = self.model_url.rstrip("/")
 
         self.model_name = model_name

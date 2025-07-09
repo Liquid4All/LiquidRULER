@@ -51,6 +51,8 @@ print(f'{sum(numeric_scores) / len(numeric_scores):.2f}')
 }
 
 # Output CSV header
+echo "Results: $MODEL_NAME"
+echo "----"
 echo "context_length,average_score,niah_single_1,niah_single_2,niah_single_3,niah_multikey_1,niah_multikey_2,niah_multikey_3,niah_multivalue,niah_multiquery,vt,cwe,fwe,qa_1,qa_2"
 
 # Process each context length

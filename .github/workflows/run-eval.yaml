@@ -16,6 +16,8 @@ on:
       - 'run-local.sh'
       - '.github/workflows/run-eval.yaml'
   workflow_dispatch:
+  schedule:
+    - cron: '17 1 * * 2'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}

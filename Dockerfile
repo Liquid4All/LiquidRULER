@@ -15,11 +15,9 @@ RUN apt-get update && apt-get install -y \
 COPY RULER/custom_requirements.txt RULER/custom_requirements.txt
 WORKDIR /app/RULER
 RUN --mount=type=cache,target=/root/.cache/pip \
-    python -m pip install cython torch torchvision torchaudio
+    python -m pip install cython
 RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install -r custom_requirements.txt
-RUN --mount=type=cache,target=/root/.cache/pip \
-    python -m pip install torchaudio --upgrade
 
 RUN pip cache purge
 
